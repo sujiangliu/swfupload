@@ -2,6 +2,7 @@ package com.fileupload;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ public class FileUploadServlet extends HttpServlet {
 		// 设置整个request的最大值
 		upload.setSizeMax(10002400000l);
 		upload.setHeaderEncoding("UTF-8");
-		
+		String returnFileName = "aaa111";
 		try {
 			List<?> items = upload.parseRequest(request);
 			FileItem item = null;
@@ -59,5 +60,8 @@ public class FileUploadServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// 可以在前端swfupload.js-->uploadSuccess().serverData中接收到该返回值。
+		PrintWriter writer = response.getWriter();
+		writer.write(returnFileName);
 	}
 }
